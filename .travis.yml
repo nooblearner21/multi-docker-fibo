@@ -1,0 +1,21 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t xadragonxa/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true xadragonxa/react-test npm test
+
+after_success:
+  - docker build -t xadragonxa/multi-client ./client
+  - docker build -t xadragonxa/multi-server ./server
+  - docker build -t xadragonxa/multi-nginx ./nginx
+  - docker build -t xadragonxa/multi-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push xadragonxa/multi-client
+  - docker push xadragonxa/multi-nginx
+  - docker push xadragonxa/multi-server
+  - docker push xadragonxa/multi-worker
