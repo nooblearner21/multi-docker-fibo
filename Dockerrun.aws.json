@@ -4,14 +4,16 @@
 			"name": "client",
 			"image": "xadragonxa/multi-client",
 			"hostname": "client",
-			"essential": false
+			"essential": false,
+			"memory": 128
 		},
 
 		{
 			"name": "server",
 			"image": "xadragonxa/multi-server",
 			"hostname": "api",
-			"essential": false
+			"essential": false,
+			"memory": 128
 
 		},
 
@@ -19,7 +21,8 @@
 			"name": "worker",
 			"image": "xadragonxa/multi-worker",
 			"hostname": "worker",
-			"essential": false
+			"essential": false,
+			"memory": 128
 
 
 		},
@@ -32,7 +35,9 @@
 				"hostPort": 80,
 				"containerPort": 80
 			}],
-			"links": ["client", "server"]
+			"links": ["client", "server"],
+			"memory": 128
+			
 		}
 
 	]
